@@ -1,0 +1,11 @@
+.gallery__like-button {
+  min-width: 22px;
+  aspect-ratio: 22 / 19;
+  background: url('../../../images/like.svg') center / cover no-repeat;
+  border: none;
+  transition: opacity .4s;
+}
+
+.gallery__like-button:hover {
+  opacity: .6;
+}

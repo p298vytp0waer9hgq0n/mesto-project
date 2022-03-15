@@ -1,0 +1,22 @@
+.profile__edit {
+  min-width: min(24px, 3.9vw);
+  margin-bottom: min(10px, 1vw);
+  aspect-ratio: 1 / 1;
+  grid-area: edit;
+  align-self: end;
+  background: url('../../../images/edit.svg') center / cover no-repeat;
+  border: none;
+  transition: opacity .4s;
+}
+
+.profile__edit:hover {
+  opacity: .6;
+}
+
+@media screen and (max-width: 450px) {
+  .profile__edit {
+    min-width: 18px;
+    margin-bottom: 5px;
+    justify-self: start;
+  }
+}

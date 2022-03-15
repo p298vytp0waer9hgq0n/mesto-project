@@ -1,0 +1,35 @@
+.profile {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 40px min(19px, max(calc(899px - 100vw), 0px)) 0;
+  display: grid;
+  grid: auto-flow / auto auto auto 1fr;
+  grid-template-areas:
+    "avatar name edit add"
+    "avatar desc . add";
+  justify-content: center;
+  gap: 0 20px;
+}
+
+@media screen and (max-width: 620px) {
+  .profile {
+    grid-template-areas:
+      "avatar avatar avatar avatar"
+      "name edit . add"
+      "desc . . add";
+    gap: 0 3.2vw;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .profile {
+    grid: auto-flow / auto auto;
+    grid-template-areas:
+      "avatar avatar"
+      "name edit"
+      "desc desc"
+      "add add";
+    justify-content: stretch;
+    justify-items: center;
+  }
+}

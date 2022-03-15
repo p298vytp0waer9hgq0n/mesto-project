@@ -1,0 +1,23 @@
+.profile__name {
+  padding-left: 10px;
+  font-weight: 500;
+  font-size: min(42px, 4.5vw);
+  line-height: 1.14;
+  grid-area: name;
+  align-self: end;
+}
+
+@media screen and (max-width: 620px) {
+  .profile__name {
+    padding-top: 28px;
+    font-size: max(22px, 4.5vw);
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .profile__name {
+    margin-left: 20px;
+    font-size: 27px;
+    justify-self: end;
+  }
+}

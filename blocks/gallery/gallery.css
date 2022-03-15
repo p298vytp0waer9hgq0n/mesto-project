@@ -1,0 +1,13 @@
+.gallery {
+  box-sizing: border-box;
+  padding: 50px min(19px, max(calc(899px - 100vw), 0px)) 0;
+  display: grid;
+  grid: auto-flow / repeat(auto-fit , minmax(240px, 1fr));
+  gap: 20px 17px;
+}
+
+@media screen and (max-width: 450px) {
+  .gallery {
+    padding: 36px 19px 0;
+  }
+}
