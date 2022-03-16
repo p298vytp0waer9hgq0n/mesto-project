@@ -10,13 +10,14 @@
 @media screen and (max-width: 620px) {
   .profile__name {
     padding-top: 28px;
-    font-size: max(22px, 4.5vw);
+    padding-left: 0;
+    font-size: 29px;
   }
 }
 
 @media screen and (max-width: 450px) {
   .profile__name {
-    margin-left: 20px;
+    margin-left: 23px;
     font-size: 27px;
     justify-self: end;
   }

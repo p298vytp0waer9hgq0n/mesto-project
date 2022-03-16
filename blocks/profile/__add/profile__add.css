@@ -5,6 +5,7 @@
   background: url('../../../images/plus.svg') center no-repeat;
   color: inherit;
   border: 2px solid #fff;
+  border-radius: 3px;
   align-self: center;
   justify-self: end;
   font-size: 42px;
