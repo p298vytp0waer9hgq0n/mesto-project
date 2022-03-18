@@ -17,71 +17,73 @@
     <section class="profile">
       <img src="./images/avatar.jpg" alt="Аватарка пользователя" class="profile__avatar">
       <h1 class="profile__name">Жак-Ив Кусто</h1>
-      <button class="profile__edit" type="button"></button>
+      <button class="profile__edit" type="button" aria-label="Редактировать профиль"></button>
       <p class="profile__description">Исследователь океана</p>
-      <button class="profile__add" type="button"></button>
+      <button class="profile__add" type="button" aria-label="Добавить картинку"></button>
     </section>
     <section class="gallery">
-      <div class="gallery__item">
-        <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="gallery__image">
-        <div class="gallery__card">
-          <h2 class="gallery__title">Карачаевск</h2>
-          <!-- <button class="gallery__like-button gallery__like-button_like"></button> -->
-          <button class="gallery__like-button"></button>
-        </div>
-      </div>
-      <div class="gallery__item">
-        <img src="./images/elbrus.png" alt="Эльбрус" class="gallery__image">
-        <div class="gallery__card">
-          <h2 class="gallery__title">Гора Эльбрус</h2>
-          <button class="gallery__like-button"></button>
-        </div>
-      </div>
-      <div class="gallery__item">
-        <img src="./images/dombai.png" alt="Домбай" class="gallery__image">
-        <div class="gallery__card">
-          <h2 class="gallery__title">Домбай</h2>
-          <button class="gallery__like-button"></button>
-        </div>
-      </div>
-      <div class="gallery__item">
-        <img src="./images/elbrus.png" alt="Эльбрус" class="gallery__image">
-        <div class="gallery__card">
-          <h2 class="gallery__title">Гора Эльбрус</h2>
-          <button class="gallery__like-button"></button>
-        </div>
-      </div>
-      <div class="gallery__item">
-        <img src="./images/dombai.png" alt="Домбай" class="gallery__image">
-        <div class="gallery__card">
-          <h2 class="gallery__title">Домбай</h2>
-          <button class="gallery__like-button"></button>
-        </div>
-      </div>
-      <div class="gallery__item">
-        <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="gallery__image">
-        <div class="gallery__card">
-          <h2 class="gallery__title">Карачаево-Черкесия</h2>
-          <button class="gallery__like-button"></button>
-        </div>
-      </div>
+      <ul class="gallery__list">
+        <li class="gallery__item">
+          <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="gallery__image">
+          <div class="gallery__card">
+            <h2 class="gallery__title">Карачаевск</h2>
+            <!-- <button class="gallery__like-button gallery__like-button_like"></button> -->
+            <button class="gallery__like-button" type="button" aria-label="Лайк"></button>
+          </div>
+        </li>
+        <li class="gallery__item">
+          <img src="./images/elbrus.png" alt="Эльбрус" class="gallery__image">
+          <div class="gallery__card">
+            <h2 class="gallery__title">Гора Эльбрус</h2>
+            <button class="gallery__like-button" type="button" aria-label="Лайк"></button>
+          </div>
+        </li>
+        <li class="gallery__item">
+          <img src="./images/dombai.png" alt="Домбай" class="gallery__image">
+          <div class="gallery__card">
+            <h2 class="gallery__title">Домбай</h2>
+            <button class="gallery__like-button" type="button" aria-label="Лайк"></button>
+          </div>
+        </li>
+        <li class="gallery__item">
+          <img src="./images/elbrus.png" alt="Эльбрус" class="gallery__image">
+          <div class="gallery__card">
+            <h2 class="gallery__title">Гора Эльбрус</h2>
+            <button class="gallery__like-button" type="button" aria-label="Лайк"></button>
+          </div>
+        </li>
+        <li class="gallery__item">
+          <img src="./images/dombai.png" alt="Домбай" class="gallery__image">
+          <div class="gallery__card">
+            <h2 class="gallery__title">Домбай</h2>
+            <button class="gallery__like-button" type="button" aria-label="Лайк"></button>
+          </div>
+        </li>
+        <li class="gallery__item">
+          <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="gallery__image">
+          <div class="gallery__card">
+            <h2 class="gallery__title">Карачаево-Черкесия</h2>
+            <button class="gallery__like-button" type="button" aria-label="Лайк"></button>
+          </div>
+        </li>
+      </ul>
     </section>
   </main>
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
-  <section class="popup-overlay">
-  <!-- <section class="popup-overlay popup-overlay_active"> -->
-    <div class="popup">
+  <div class="popup">
+  <!-- <div class="popup popup_active"> -->
+    <div class="popup__module">
       <h2 class="popup__heading">Редактировать профиль</h2>
-      <form class="popup__form" action="">
+      <form class="popup__form" name="edit-profile" action="#">
         <input type="text" class="popup__input" id="name" name="name" value="Жак-Ив Кусто" required>
         <input type="text" class="popup__input" id="description" name="description" value="Исследователь океана">
         <button class="popup__button" type="submit">Сохранить</button>
       </form>
-      <button class="popup__close" type="button"></button>
+      <button class="popup__close" type="button" aria-label="Закрыть без сохранения"></button>
     </div>
-  </section>
+  </div>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 .gallery__image {
   display: block;
   width: 100%;
-  aspect-ratio: initial;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
 }

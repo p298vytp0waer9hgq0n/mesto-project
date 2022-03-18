@@ -4,8 +4,9 @@
   background: url('../../../images/like.svg') center / cover no-repeat;
   border: none;
   transition: opacity .4s;
+  cursor: pointer;
 }
 
 .gallery__like-button:hover {
-  opacity: .6;
+  opacity: .5;
 }

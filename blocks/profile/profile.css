@@ -10,7 +10,7 @@
   justify-content: center;
   gap: 0 20px;
 }
-
+/*
 @media screen and (max-width: 620px) {
   .profile {
     grid-template-areas:
@@ -19,7 +19,7 @@
       "desc . . add";
     gap: 0 3.2vw;
   }
-}
+}*/
 
 @media screen and (max-width: 450px) {
   .profile {
@@ -31,5 +31,6 @@
       "add add";
     justify-content: stretch;
     justify-items: center;
+    gap: 0 3.2vw;
   }
 }

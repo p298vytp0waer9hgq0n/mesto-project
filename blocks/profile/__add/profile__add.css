@@ -10,6 +10,7 @@
   justify-self: end;
   font-size: 42px;
   transition: opacity .4s;
+  cursor: pointer;
 }
 
 .profile__add:hover {
