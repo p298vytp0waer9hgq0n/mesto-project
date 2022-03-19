@@ -21,6 +21,7 @@
 
 @media screen and (max-width: 450px) {
   .profile__name {
+    max-width: 100%;
     margin-left: 23px;
     font-size: 27px;
     justify-self: end;
