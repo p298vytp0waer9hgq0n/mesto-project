@@ -15,8 +15,16 @@ function closePopup () {
   }
 }
 
+function likeButton () {
+  this.classList.toggle('gallery__like-button_like');
+}
+
 document.querySelector('.profile__add').addEventListener('click', openPopupNewPlace);
 document.querySelector('.popup__close_type_new-place').addEventListener('click', closePopup.bind(document.querySelector('.popup_type_new-place')));
 
 document.querySelector('.profile__edit').addEventListener('click', openPopupEditProfile);
 document.querySelector('.popup__close_type_edit-profile').addEventListener('click', closePopup.bind(document.querySelector('.popup_type_edit-profile')));
+
+for (like of document.querySelectorAll('.gallery__like-button')) {
+  like.addEventListener('click', likeButton);
+}
