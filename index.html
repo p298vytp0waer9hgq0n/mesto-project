@@ -78,18 +78,31 @@
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
-  <div class="popup">
+  <div class="popup popup_type_edit-profile">
   <!-- <div class="popup popup_active"> -->
     <div class="popup__module">
       <h2 class="popup__heading">Редактировать профиль</h2>
       <form class="popup__form" name="edit-profile" action="#">
-        <input type="text" class="popup__input" id="name" name="name" value="Жак-Ив Кусто" required>
-        <input type="text" class="popup__input" id="description" name="description" value="Исследователь океана">
+        <input type="text" class="popup__input popup__input_type_profile-name" id="name" name="name" required>
+        <input type="text" class="popup__input popup__input_type_profile-desc" id="description" name="description">
         <button class="popup__button" type="submit">Сохранить</button>
       </form>
-      <button class="popup__close" type="button" aria-label="Закрыть без сохранения"></button>
+      <button class="popup__close popup__close_type_edit-profile" type="button" aria-label="Закрыть без сохранения"></button>
     </div>
   </div>
+  <div class="popup popup_type_new-place">
+  <!-- <div class="popup popup_active"> -->
+    <div class="popup__module">
+      <h2 class="popup__heading">Новое место</h2>
+      <form class="popup__form" name="new-place" action="#">
+        <input type="text" class="popup__input" id="picture-name" name="name" placeholder="Название" required>
+        <input type="text" class="popup__input" id="picture-adress" name="description" placeholder="Ссылка на картинку" required>
+        <button class="popup__button" type="submit">Создать</button>
+      </form>
+      <button class="popup__close popup__close_type_new-place" type="button" aria-label="Закрыть без сохранения"></button>
+    </div>
+  </div>
+  <script src="./scripts/script.js"></script>
 </body>
 
 </html>
