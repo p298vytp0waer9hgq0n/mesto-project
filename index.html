@@ -23,55 +23,6 @@
     </section>
     <section class="gallery">
       <ul class="gallery__list">
-        <li class="gallery__item">
-          <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="gallery__image">
-          <button class="gallery__delete-button"></button>
-          <div class="gallery__card">
-            <h2 class="gallery__title">Карачаевск</h2>
-            <!-- <button class="gallery__like-button gallery__like-button_like"></button> -->
-            <button class="gallery__like-button" type="button" aria-label="Лайк"></button>
-          </div>
-        </li>
-        <li class="gallery__item">
-          <img src="./images/elbrus.png" alt="Эльбрус" class="gallery__image">
-          <button class="gallery__delete-button"></button>
-          <div class="gallery__card">
-            <h2 class="gallery__title">Гора Эльбрус</h2>
-            <button class="gallery__like-button" type="button" aria-label="Лайк"></button>
-          </div>
-        </li>
-        <li class="gallery__item">
-          <img src="./images/dombai.png" alt="Домбай" class="gallery__image">
-          <button class="gallery__delete-button"></button>
-          <div class="gallery__card">
-            <h2 class="gallery__title">Домбай</h2>
-            <button class="gallery__like-button" type="button" aria-label="Лайк"></button>
-          </div>
-        </li>
-        <li class="gallery__item">
-          <img src="./images/elbrus.png" alt="Эльбрус" class="gallery__image">
-          <button class="gallery__delete-button"></button>
-          <div class="gallery__card">
-            <h2 class="gallery__title">Гора Эльбрус</h2>
-            <button class="gallery__like-button" type="button" aria-label="Лайк"></button>
-          </div>
-        </li>
-        <li class="gallery__item">
-          <img src="./images/dombai.png" alt="Домбай" class="gallery__image">
-          <button class="gallery__delete-button"></button>
-          <div class="gallery__card">
-            <h2 class="gallery__title">Домбай</h2>
-            <button class="gallery__like-button" type="button" aria-label="Лайк"></button>
-          </div>
-        </li>
-        <li class="gallery__item">
-          <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="gallery__image">
-          <button class="gallery__delete-button"></button>
-          <div class="gallery__card">
-            <h2 class="gallery__title">Карачаево-Черкесия</h2>
-            <button class="gallery__like-button" type="button" aria-label="Лайк"></button>
-          </div>
-        </li>
       </ul>
     </section>
   </main>
@@ -79,29 +30,37 @@
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
   <div class="popup popup_type_edit-profile">
-  <!-- <div class="popup popup_active"> -->
     <div class="popup__module">
       <h2 class="popup__heading">Редактировать профиль</h2>
-      <form class="popup__form" name="edit-profile" action="#">
+      <form class="popup__form popup__form_type_edit-profile" name="edit-profile" action="#">
         <input type="text" class="popup__input popup__input_type_profile-name" id="name" name="name" required>
         <input type="text" class="popup__input popup__input_type_profile-desc" id="description" name="description">
         <button class="popup__button" type="submit">Сохранить</button>
       </form>
-      <button class="popup__close popup__close_type_edit-profile" type="button" aria-label="Закрыть без сохранения"></button>
+      <button class="popup__close" type="button" aria-label="Закрыть без сохранения"></button>
     </div>
   </div>
   <div class="popup popup_type_new-place">
-  <!-- <div class="popup popup_active"> -->
     <div class="popup__module">
       <h2 class="popup__heading">Новое место</h2>
-      <form class="popup__form" name="new-place" action="#">
+      <form class="popup__form popup__form_type_new-place" name="new-place" action="#">
         <input type="text" class="popup__input" id="picture-name" name="name" placeholder="Название" required>
-        <input type="text" class="popup__input" id="picture-adress" name="description" placeholder="Ссылка на картинку" required>
+        <input type="text" class="popup__input" id="picture-address" name="description" placeholder="Ссылка на картинку" required>
         <button class="popup__button" type="submit">Создать</button>
       </form>
-      <button class="popup__close popup__close_type_new-place" type="button" aria-label="Закрыть без сохранения"></button>
+      <button class="popup__close" type="button" aria-label="Закрыть без сохранения"></button>
     </div>
   </div>
+  <template id="gallery-item-template">
+    <li class="gallery__item">
+      <img src="" alt="" class="gallery__image">
+      <button class="gallery__delete-button"></button>
+      <div class="gallery__card">
+        <h2 class="gallery__title"></h2>
+        <button class="gallery__like-button" type="button" aria-label="Лайк"></button>
+      </div>
+    </li>
+  </template>
   <script src="./scripts/script.js"></script>
 </body>
 
