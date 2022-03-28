@@ -21,7 +21,7 @@
       <p class="profile__description">Исследователь океана</p>
       <button class="profile__add" type="button" aria-label="Добавить картинку"></button>
     </section>
-    <section class="gallery">
+    <section class="gallery" aria-label="Галерея">
       <ul class="gallery__list">
       </ul>
     </section>
@@ -29,17 +29,19 @@
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
+
   <div class="popup popup_type_edit-profile">
     <div class="popup__module">
       <h2 class="popup__heading">Редактировать профиль</h2>
       <form class="popup__form popup__form_type_edit-profile" name="edit-profile" action="#">
-        <input type="text" class="popup__input popup__input_type_profile-name" id="name" name="name" required>
-        <input type="text" class="popup__input popup__input_type_profile-desc" id="description" name="description">
+        <input type="text" class="popup__input" id="name" name="name" required>
+        <input type="text" class="popup__input" id="description" name="description">
         <button class="popup__button" type="submit">Сохранить</button>
       </form>
       <button class="popup__close" type="button" aria-label="Закрыть без сохранения"></button>
     </div>
   </div>
+
   <div class="popup popup_type_new-place">
     <div class="popup__module">
       <h2 class="popup__heading">Новое место</h2>
@@ -51,16 +53,26 @@
       <button class="popup__close" type="button" aria-label="Закрыть без сохранения"></button>
     </div>
   </div>
+
+  <div class="popup popup_type_show-image">
+    <div class="popup__image-container">
+      <img class="popup__image" alt="" src="#">
+      <p class="popup__image-description"></p>
+      <button class="popup__close" type="button" aria-label="Закрыть"></button>
+    </div>
+  </div>
+
   <template id="gallery-item-template">
     <li class="gallery__item">
       <img src="" alt="" class="gallery__image">
-      <button class="gallery__delete-button"></button>
+      <button class="gallery__delete-button" type="button" aria-label="Удалить"></button>
       <div class="gallery__card">
         <h2 class="gallery__title"></h2>
         <button class="gallery__like-button" type="button" aria-label="Лайк"></button>
       </div>
     </li>
   </template>
+
   <script src="./scripts/script.js"></script>
 </body>
 

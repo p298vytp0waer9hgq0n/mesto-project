@@ -1,3 +1,4 @@
+//Константы
 const initialCards = [
   {
     name: 'Архыз',
@@ -24,34 +25,45 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+const galleryList = document.querySelector('.gallery__list');
 
+// Установка листенеров для существующих элементов
 document.querySelector('.profile__add').addEventListener('click', openPopupNewPlace);
 document.querySelector('.profile__edit').addEventListener('click', openPopupEditProfile);
 document.querySelector('.popup__form_type_edit-profile').addEventListener('submit', submitProfile);
 document.querySelector('.popup__form_type_new-place').addEventListener('submit', submitPlace);
-
 for (const butt of document.querySelectorAll('.popup__close')) {
   butt.addEventListener('click', closePopup);
 }
 
-for (const like of document.querySelectorAll('.gallery__like-button')) {
-  like.addEventListener('click', likeButton);
-}
-
+//Население галереи
 for (const card of initialCards) {
-  addGalleryItem(card.name, card.link);
+  galleryList.append(createGalleryItem(card.name, card.link));
 }
 
+
+//Функции открытия попапов
 function openPopupNewPlace () {
   document.querySelector('.popup_type_new-place').classList.add('popup_active');
 }
 
 function openPopupEditProfile () {
-  document.querySelector('.popup_type_edit-profile').classList.add('popup_active');
-  document.querySelector('.popup__input_type_profile-name').value = document.querySelector('.profile__name').textContent;
-  document.querySelector('.popup__input_type_profile-desc').value = document.querySelector('.profile__description').textContent;
+  const editPopup = document.querySelector('.popup_type_edit-profile');
+  editPopup.querySelector('#name').value = document.querySelector('.profile__name').textContent;
+  editPopup.querySelector('#description').value = document.querySelector('.profile__description').textContent;
+  editPopup.classList.add('popup_active');
 }
 
+function openPopupShowImage (evt) {
+  const imagePopup = document.querySelector('.popup_type_show-image');
+  const imagePopupImage = imagePopup.querySelector('.popup__image');
+  imagePopupImage.src = evt.target.src;
+  imagePopupImage.alt = evt.target.alt;
+  imagePopup.querySelector('.popup__image-description').textContent = evt.target.alt;
+  imagePopup.classList.add('popup_active');
+}
+
+//Функции закрытия попапов
 function submitProfile (evt) {
   document.querySelector('.profile__name').textContent = evt.target.querySelector('#name').value;
   document.querySelector('.profile__description').textContent = evt.target.querySelector('#description').value;
@@ -60,7 +72,7 @@ function submitProfile (evt) {
 }
 
 function submitPlace (evt) {
-  addGalleryItem(evt.target.querySelector('#picture-name').value, evt.target.querySelector('#picture-address').value);
+  galleryList.prepend(createGalleryItem(evt.target.querySelector('#picture-name').value, evt.target.querySelector('#picture-address').value));
   closePopup(evt);
   evt.preventDefault();
 }
@@ -72,6 +84,7 @@ function closePopup (evt) {
   }
 }
 
+//Функции кнопочек
 function likeButton () {
   this.classList.toggle('gallery__like-button_like');
 }
@@ -80,13 +93,15 @@ function deleteButton () {
   this.closest('.gallery__item').remove();
 }
 
-function addGalleryItem (title, source) {
-  const galleryTemplate = document.querySelector('#gallery-item-template').content;
-  const galleryItem = galleryTemplate.cloneNode(true);
+//Функция создания карточки галереи
+function createGalleryItem (title, source) {
+  const galleryItem = document.querySelector('#gallery-item-template').content.cloneNode(true);
+  const galleryItemImage = galleryItem.querySelector('.gallery__image');
+  galleryItemImage.src = source;
+  galleryItemImage.alt = title;
+  galleryItemImage.addEventListener('click', openPopupShowImage);
   galleryItem.querySelector('.gallery__title').textContent = title;
-  galleryItem.querySelector('.gallery__image').src = source;
-  galleryItem.querySelector('.gallery__image').alt = title;
   galleryItem.querySelector('.gallery__like-button').addEventListener('click', likeButton);
   galleryItem.querySelector('.gallery__delete-button').addEventListener('click', deleteButton);
-  document.querySelector('.gallery__list').prepend(galleryItem);
+  return galleryItem;
 }
