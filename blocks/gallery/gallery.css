@@ -1,5 +1,6 @@
 .gallery {
   box-sizing: border-box;
+  min-height: 30vh;
   padding: 50px min(19px, max(calc(899px - 100vw), 0px)) 0;
 }
 
