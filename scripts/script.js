@@ -25,23 +25,27 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const profileAddButton = document.querySelector('.profile__add');
 const profileEditButton = document.querySelector('.profile__edit');
-const formEditProfile = document.querySelector('.popup__form_type_edit-profile');
-const formNewPlace = document.querySelector('.popup__form_type_new-place');
+
+const formEditProfile = document.forms.editProfile;
+const formNewPlace = document.forms.newPlace;
+
 const popups = document.querySelectorAll('.popup');
 const popupCloseButtons = document.querySelectorAll('.popup__close');
 const popupNewPlace = document.querySelector('.popup_type_new-place');
-const popupNewPlaceNameInput = popupNewPlace.querySelector('#picture-name');
-const popupNewPlaceAddrInput = popupNewPlace.querySelector('#picture-address');
+const popupNewPlaceNameInput = formNewPlace.elements.name;
+const popupNewPlaceAddrInput = formNewPlace.elements.address;
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
-const popupEditProfileNameInput = popupEditProfile.querySelector('#name');
-const popupEditProfileDescInput = popupEditProfile.querySelector('#description');
+const popupEditProfileNameInput = formEditProfile.elements.name;
+const popupEditProfileDescInput = formEditProfile.elements.description;
 const popupShowImage = document.querySelector('.popup_type_show-image');
 const popupShowImageImage = popupShowImage.querySelector('.popup__image');
 const popupShowImageDesc = popupShowImage.querySelector('.popup__image-description');
+
 const galleryList = document.querySelector('.gallery__list');
 
 
