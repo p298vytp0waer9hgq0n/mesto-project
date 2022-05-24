@@ -31,6 +31,7 @@ const profileAddButton = document.querySelector('.profile__add');
 const profileEditButton = document.querySelector('.profile__edit');
 const formEditProfile = document.querySelector('.popup__form_type_edit-profile');
 const formNewPlace = document.querySelector('.popup__form_type_new-place');
+const popups = document.querySelectorAll('.popup');
 const popupCloseButtons = document.querySelectorAll('.popup__close');
 const popupNewPlace = document.querySelector('.popup_type_new-place');
 const popupNewPlaceNameInput = popupNewPlace.querySelector('#picture-name');
@@ -72,18 +73,19 @@ function openPopup (popup) {
 function submitProfile (evt) {
   profileName.textContent = popupEditProfileNameInput.value;
   profileDescription.textContent = popupEditProfileDescInput.value;
-  closePopup(evt);
+  closePopup();
   evt.preventDefault();
 }
 
 function submitPlace (evt) {
   galleryList.prepend(createGalleryItem(popupNewPlaceNameInput.value, popupNewPlaceAddrInput.value));
-  closePopup(evt);
+  closePopup();
   evt.preventDefault();
 }
 
-function closePopup (evt) {
-  evt.target.closest('.popup').classList.remove('popup_active');
+function closePopup () {
+  const popup = document.querySelector('.popup_active')
+  if (popup) popup.classList.remove('popup_active');
 }
 
 //Функции кнопочек
@@ -118,6 +120,14 @@ formNewPlace.addEventListener('submit', submitPlace);
 for (const butt of popupCloseButtons) {
   butt.addEventListener('click', closePopup);
 }
+for (const popup of popups) {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup')) closePopup();
+  });
+}
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') closePopup();
+});
 
 //Население галереи
 for (const card of initialCards) {
