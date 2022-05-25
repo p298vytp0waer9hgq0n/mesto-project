@@ -1,0 +1,7 @@
+.popup__invalid-msg {
+  min-height: 14px;
+  margin-top: 5px;
+  font-size: 12px;
+  visibility: hidden;
+  color: #f00;
+}

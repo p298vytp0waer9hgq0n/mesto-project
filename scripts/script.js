@@ -31,17 +31,18 @@ const profileDescription = document.querySelector('.profile__description');
 const profileAddButton = document.querySelector('.profile__add');
 const profileEditButton = document.querySelector('.profile__edit');
 
+const forms = document.forms;
 const formEditProfile = document.forms.editProfile;
 const formNewPlace = document.forms.newPlace;
+const formNewPlaceNameInput = formNewPlace.elements.name;
+const formNewPlaceAddrInput = formNewPlace.elements.address;
+const formEditProfileNameInput = formEditProfile.elements.name;
+const formEditProfileDescInput = formEditProfile.elements.description;
 
 const popups = document.querySelectorAll('.popup');
 const popupCloseButtons = document.querySelectorAll('.popup__close');
 const popupNewPlace = document.querySelector('.popup_type_new-place');
-const popupNewPlaceNameInput = formNewPlace.elements.name;
-const popupNewPlaceAddrInput = formNewPlace.elements.address;
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
-const popupEditProfileNameInput = formEditProfile.elements.name;
-const popupEditProfileDescInput = formEditProfile.elements.description;
 const popupShowImage = document.querySelector('.popup_type_show-image');
 const popupShowImageImage = popupShowImage.querySelector('.popup__image');
 const popupShowImageDesc = popupShowImage.querySelector('.popup__image-description');
@@ -57,8 +58,8 @@ function openPopupNewPlace () {
 }
 
 function openPopupEditProfile () {
-  popupEditProfileNameInput.value = profileName.textContent;
-  popupEditProfileDescInput.value = profileDescription.textContent;
+  formEditProfileNameInput.value = profileName.textContent;
+  formEditProfileDescInput.value = profileDescription.textContent;
   openPopup(popupEditProfile);
 }
 
@@ -75,14 +76,14 @@ function openPopup (popup) {
 
 //Функции закрытия попапов
 function submitProfile (evt) {
-  profileName.textContent = popupEditProfileNameInput.value;
-  profileDescription.textContent = popupEditProfileDescInput.value;
+  profileName.textContent = formEditProfileNameInput.value;
+  profileDescription.textContent = formEditProfileDescInput.value;
   closePopup();
   evt.preventDefault();
 }
 
 function submitPlace (evt) {
-  galleryList.prepend(createGalleryItem(popupNewPlaceNameInput.value, popupNewPlaceAddrInput.value));
+  galleryList.prepend(createGalleryItem(formNewPlaceNameInput.value, formNewPlaceAddrInput.value));
   closePopup();
   evt.preventDefault();
 }
