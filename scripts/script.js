@@ -102,6 +102,51 @@ function deleteButton () {
   this.closest('.gallery__item').remove();
 }
 
+//Функция инициализации валидации форм
+function enableValidation () {
+  for (const form of forms) {
+    validateForm(form);
+  }
+}
+
+//Функция валидации формы
+function validateForm (form) {
+  form.setAttribute('novalidate', '');
+  const inputs = Array.from(form.querySelectorAll('.popup__input'));
+  const button = form.querySelector('.popup__button');
+  form.addEventListener('input', (evt) => {
+    const msgSpan = form.querySelector(`.${evt.target.name}-invalid`);
+    validateInput(form, evt.target, msgSpan);
+    validateButton(inputs, button);
+  });
+}
+
+//Функция валидации инпута
+function validateInput (form, input, msgSpan) {
+  msgSpan.textContent = input.validationMessage;
+  if (input.validity.valid) {
+    input.classList.remove('popup__input_invalid');
+    msgSpan.classList.remove('popup__invalid-msg_active');
+  } else {
+    input.classList.add('popup__input_invalid');
+    msgSpan.classList.add('popup__invalid-msg_active');
+  }
+}
+
+//Функция валидизации кнопки
+function validateButton(inputs, button) {
+  const invalid = inputs.some((input) => {
+    return !input.validity.valid;
+  });
+  if (!invalid) {
+    button.classList.remove('popup__button_disabled');
+    button.removeAttribute('disabled');
+  } else {
+    button.classList.add('popup__button_disabled');
+    button.setAttribute('disabled', '');
+  }
+}
+
 //Функция создания карточки галереи
 function createGalleryItem (title, source) {
   const galleryItem = document.querySelector('#gallery-item-template').content.cloneNode(true);
@@ -138,3 +183,6 @@ document.addEventListener('keydown', (evt) => {
 for (const card of initialCards) {
   galleryList.append(createGalleryItem(card.name, card.link));
 }
+
+//Включение валидизации инпута
+enableValidation();
