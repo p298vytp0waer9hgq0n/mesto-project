@@ -1,35 +1,6 @@
-//Константы
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
+import { createGalleryItem } from "./gallery.js";
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
-const profileAddButton = document.querySelector('.profile__add');
-const profileEditButton = document.querySelector('.profile__edit');
 
 const forms = document.forms;
 const formEditProfile = document.forms.editProfile;
@@ -40,8 +11,6 @@ const formEditProfileNameInput = formEditProfile.elements.name;
 const formEditProfileDescInput = formEditProfile.elements.description;
 const formEditProfileSubmitBtn = formEditProfile.elements.submit;
 
-const popups = document.querySelectorAll('.popup');
-const popupCloseButtons = document.querySelectorAll('.popup__close');
 const popupNewPlace = document.querySelector('.popup_type_new-place');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupShowImage = document.querySelector('.popup_type_show-image');
@@ -49,8 +18,6 @@ const popupShowImageImage = popupShowImage.querySelector('.popup__image');
 const popupShowImageDesc = popupShowImage.querySelector('.popup__image-description');
 
 const galleryList = document.querySelector('.gallery__list');
-
-
 
 //Функции открытия попапов
 function openPopupNewPlace () {
@@ -95,7 +62,7 @@ function closePopup () {
   if (popup) {
     popup.classList.remove('popup_active');
     const form = popup.querySelector('.popup__form');
-    resetForm(form);
+    if (form) resetForm(form);
   }
 }
 
@@ -108,14 +75,6 @@ function resetForm(form) {
 }
 
 //Функции кнопочек
-function likeButton () {
-  this.classList.toggle('gallery__like-button_like');
-}
-
-function deleteButton () {
-  this.closest('.gallery__item').remove();
-}
-
 function toggleSubmitBtn (valid, button) {
   if (!valid) {
     button.classList.add('popup__button_disabled');
@@ -165,42 +124,5 @@ function validateButton(inputs, button) {
   toggleSubmitBtn(!invalid, button);
 }
 
-//Функция создания карточки галереи
-function createGalleryItem (title, source) {
-  const galleryItem = document.querySelector('#gallery-item-template').content.cloneNode(true);
-  const galleryItemImage = galleryItem.querySelector('.gallery__image');
-  galleryItemImage.src = source;
-  galleryItemImage.alt = title;
-  galleryItemImage.addEventListener('click', () => openPopupShowImage(title, source));
-  galleryItem.querySelector('.gallery__title').textContent = title;
-  galleryItem.querySelector('.gallery__like-button').addEventListener('click', likeButton);
-  galleryItem.querySelector('.gallery__delete-button').addEventListener('click', deleteButton);
-  return galleryItem;
-}
 
-
-
-// Установка листенеров для существующих элементов
-profileAddButton.addEventListener('click', openPopupNewPlace);
-profileEditButton.addEventListener('click', openPopupEditProfile);
-formEditProfile.addEventListener('submit', submitProfile);
-formNewPlace.addEventListener('submit', submitPlace);
-for (const butt of popupCloseButtons) {
-  butt.addEventListener('click', closePopup);
-}
-for (const popup of popups) {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup')) closePopup();
-  });
-}
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') closePopup();
-});
-
-//Население галереи
-for (const card of initialCards) {
-  galleryList.append(createGalleryItem(card.name, card.link));
-}
-
-//Включение валидизации инпута
-enableValidation();
+export {formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditProfile, openPopupShowImage, submitProfile, submitPlace, closePopup, enableValidation};
