@@ -1,4 +1,5 @@
 import { createGalleryItem } from "./gallery.js";
+
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 
