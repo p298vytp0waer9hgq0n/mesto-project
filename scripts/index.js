@@ -1,3 +1,5 @@
+import '../pages/index.css';
+
 import {createGalleryItem} from './gallery.js';
 import {formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditProfile, submitProfile, submitPlace, closePopup, enableValidation} from './modals.js';
 
