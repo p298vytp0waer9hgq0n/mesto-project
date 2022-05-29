@@ -6,8 +6,11 @@ const profileDescription = document.querySelector('.profile__description');
 const forms = document.forms;
 const formEditProfile = document.forms.editProfile;
 const formNewPlace = document.forms.newPlace;
+
 const formNewPlaceNameInput = formNewPlace.elements.name;
 const formNewPlaceAddrInput = formNewPlace.elements.address;
+const formNewPlaceSubmitBtn = formNewPlace.elements.submit;
+
 const formEditProfileNameInput = formEditProfile.elements.name;
 const formEditProfileDescInput = formEditProfile.elements.description;
 const formEditProfileSubmitBtn = formEditProfile.elements.submit;
@@ -42,6 +45,7 @@ function openPopupShowImage (title, source) {
 
 function openPopup (popup) {
   popup.classList.add('popup_active');
+  document.addEventListener('keydown', closeOnEsc);
 }
 
 //Функции закрытия попапов
@@ -55,6 +59,7 @@ function submitProfile (evt) {
 function submitPlace (evt) {
   galleryList.prepend(createGalleryItem(formNewPlaceNameInput.value, formNewPlaceAddrInput.value));
   closePopup();
+  toggleSubmitBtn(false, formNewPlaceSubmitBtn);
   evt.preventDefault();
 }
 
@@ -64,18 +69,18 @@ function closePopup () {
     popup.classList.remove('popup_active');
     const form = popup.querySelector('.popup__form');
     if (form) resetForm(form);
+    document.removeEventListener('keydown', closeOnEsc);
   }
 }
 
 function resetForm(form) {
   for (const element of form.children) {
-    console.log(form.children);
     element.classList.remove('popup__input_invalid');
     element.classList.remove('popup__invalid-msg_active');
   }
 }
 
-//Функции кнопочек
+//Функция переключения состояния кнопки
 function toggleSubmitBtn (valid, button) {
   if (!valid) {
     button.classList.add('popup__button_disabled');
@@ -84,6 +89,10 @@ function toggleSubmitBtn (valid, button) {
     button.classList.remove('popup__button_disabled');
     button.removeAttribute('disabled');
   }
+}
+
+function closeOnEsc (evt) {
+  if (evt.key === 'Escape') closePopup();
 }
 
 //Функция инициализации валидации форм

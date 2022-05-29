@@ -10,13 +10,13 @@ module.exports = {
 		filename: 'main.js',
 		publicPath: ''
 	},
-  mode: 'development',
-  devServer: {
-    static: path.resolve(__dirname, './dist'),
-    compress: true,
-    port: 8080,
-    open: true
-  },
+	mode: 'development',
+	devServer: {
+		static: path.resolve(__dirname, './dist'),
+		compress: true,
+		port: 8080,
+		open: true
+	},
 	module: {
 		rules: [
 			{
@@ -28,10 +28,10 @@ module.exports = {
 				test: /\.css$/,
 				use: [MiniCssExtractPlugin.loader, { loader: 'css-loader', options: { importLoaders: 1 } }, 'postcss-loader']
 			},
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        type: 'asset/resource',
-      }
+			{
+				test: /\.(png|svg|jpg|gif)$/,
+				type: 'asset/resource',
+			}
 		]
 	},
 	plugins: [

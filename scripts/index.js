@@ -49,9 +49,6 @@ for (const popup of popups) {
     if (evt.target.classList.contains('popup')) closePopup();
   });
 }
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') closePopup();
-});
 
 //Население галереи
 for (const card of initialCards) {
