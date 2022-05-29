@@ -1,7 +1,8 @@
 import '../pages/index.css';
 
-import {createGalleryItem} from './gallery.js';
-import {formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditProfile, submitProfile, submitPlace, closePopup, enableValidation} from './modals.js';
+import { enableValidation } from './validate.js';
+import { createGalleryItem } from './cards.js';
+import { formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditProfile, submitProfile, submitPlace, closePopup } from './modals.js';
 
 
 const initialCards = [
@@ -36,6 +37,15 @@ const profileEditButton = document.querySelector('.profile__edit');
 const popups = document.querySelectorAll('.popup');
 const popupCloseButtons = document.querySelectorAll('.popup__close');
 
+const validationParameters = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_invalid',
+  errorClass: 'popup__invalid-msg_active'
+};
+
 
 profileAddButton.addEventListener('click', openPopupNewPlace);
 profileEditButton.addEventListener('click', openPopupEditProfile);
@@ -56,4 +66,6 @@ for (const card of initialCards) {
 }
 
 //Включение валидизации инпута
-enableValidation();
+enableValidation(validationParameters);
+
+export { validationParameters };

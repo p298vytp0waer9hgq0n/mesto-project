@@ -1,21 +1,14 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const merge = require('webpack-merge').merge;
+const common = require('./webpack.common');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = {
-	entry: { main: './scripts/index.js' },
+module.exports = merge(common, {
+  mode: 'production',
 	output: {
 		path: path.resolve(__dirname, './dist'),
 		filename: 'main.js',
 		publicPath: ''
-	},
-	mode: 'development',
-	devServer: {
-		static: path.resolve(__dirname, './dist'),
-		compress: true,
-		port: 8080,
-		open: true
 	},
 	module: {
 		rules: [
@@ -27,16 +20,11 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [MiniCssExtractPlugin.loader, { loader: 'css-loader', options: { importLoaders: 1 } }, 'postcss-loader']
-			},
-			{
-				test: /\.(png|svg|jpg|gif)$/,
-				type: 'asset/resource',
 			}
 		]
 	},
 	plugins: [
-		new HtmlWebpackPlugin({ template: './index.html' }),
 		new CleanWebpackPlugin(),
 		new MiniCssExtractPlugin()
 	]
-}
+});

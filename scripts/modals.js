@@ -1,9 +1,10 @@
-import { createGalleryItem } from "./gallery.js";
+import { createGalleryItem } from "./cards.js";
+import { validationParameters } from "./index.js";
 
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 
-const forms = document.forms;
+// const forms = document.forms;
 const formEditProfile = document.forms.editProfile;
 const formNewPlace = document.forms.newPlace;
 
@@ -32,7 +33,7 @@ function openPopupNewPlace () {
 function openPopupEditProfile () {
   formEditProfileNameInput.value = profileName.textContent;
   formEditProfileDescInput.value = profileDescription.textContent;
-  toggleSubmitBtn(true, formEditProfileSubmitBtn);
+  toggleSubmitBtn(true, formEditProfileSubmitBtn, validationParameters);
   openPopup(popupEditProfile);
 }
 
@@ -59,7 +60,7 @@ function submitProfile (evt) {
 function submitPlace (evt) {
   galleryList.prepend(createGalleryItem(formNewPlaceNameInput.value, formNewPlaceAddrInput.value));
   closePopup();
-  toggleSubmitBtn(false, formNewPlaceSubmitBtn);
+  toggleSubmitBtn(false, formNewPlaceSubmitBtn, validationParameters);
   evt.preventDefault();
 }
 
@@ -75,18 +76,18 @@ function closePopup () {
 
 function resetForm(form) {
   for (const element of form.children) {
-    element.classList.remove('popup__input_invalid');
-    element.classList.remove('popup__invalid-msg_active');
+    element.classList.remove(validationParameters.inputErrorClass);
+    element.classList.remove(validationParameters.errorClass);
   }
 }
 
 //Функция переключения состояния кнопки
-function toggleSubmitBtn (valid, button) {
+function toggleSubmitBtn (valid, button, param) {
   if (!valid) {
-    button.classList.add('popup__button_disabled');
+    button.classList.add(param.inactiveButtonClass);
     button.setAttribute('disabled', '');
   } else {
-    button.classList.remove('popup__button_disabled');
+    button.classList.remove(param.inactiveButtonClass);
     button.removeAttribute('disabled');
   }
 }
@@ -95,44 +96,4 @@ function closeOnEsc (evt) {
   if (evt.key === 'Escape') closePopup();
 }
 
-//Функция инициализации валидации форм
-function enableValidation () {
-  for (const form of forms) {
-    validateForm(form);
-  }
-}
-
-//Функция валидации формы
-function validateForm (form) {
-  form.setAttribute('novalidate', '');
-  const inputs = Array.from(form.querySelectorAll('.popup__input'));
-  const button = form.querySelector('.popup__button');
-  form.addEventListener('input', (evt) => {
-    const msgSpan = form.querySelector(`.${evt.target.name}-invalid`);
-    validateInput(evt.target, msgSpan);
-    validateButton(inputs, button);
-  });
-}
-
-//Функция валидации инпута
-function validateInput (input, msgSpan) {
-  msgSpan.textContent = input.validationMessage;
-  if (input.validity.valid) {
-    input.classList.remove('popup__input_invalid');
-    msgSpan.classList.remove('popup__invalid-msg_active');
-  } else {
-    input.classList.add('popup__input_invalid');
-    msgSpan.classList.add('popup__invalid-msg_active');
-  }
-}
-
-//Функция валидизации кнопки
-function validateButton(inputs, button) {
-  const invalid = inputs.some((input) => {
-    return !input.validity.valid;
-  });
-  toggleSubmitBtn(!invalid, button);
-}
-
-
-export {formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditProfile, openPopupShowImage, submitProfile, submitPlace, closePopup, enableValidation};
+export { formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditProfile, openPopupShowImage, submitProfile, submitPlace, closePopup, toggleSubmitBtn };
