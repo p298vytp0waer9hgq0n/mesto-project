@@ -4,13 +4,11 @@ import { validationParameters } from "./index.js";
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 
-// const forms = document.forms;
 const formEditProfile = document.forms.editProfile;
 const formNewPlace = document.forms.newPlace;
 
 const formNewPlaceNameInput = formNewPlace.elements.name;
 const formNewPlaceAddrInput = formNewPlace.elements.address;
-const formNewPlaceSubmitBtn = formNewPlace.elements.submit;
 
 const formEditProfileNameInput = formEditProfile.elements.name;
 const formEditProfileDescInput = formEditProfile.elements.description;
@@ -60,7 +58,6 @@ function submitProfile (evt) {
 function submitPlace (evt) {
   galleryList.prepend(createGalleryItem(formNewPlaceNameInput.value, formNewPlaceAddrInput.value));
   closePopup();
-  toggleSubmitBtn(false, formNewPlaceSubmitBtn, validationParameters);
   evt.preventDefault();
 }
 
@@ -75,6 +72,7 @@ function closePopup () {
 }
 
 function resetForm(form) {
+  toggleSubmitBtn(false, form.submit, validationParameters);
   for (const element of form.children) {
     element.classList.remove(validationParameters.inputErrorClass);
     element.classList.remove(validationParameters.errorClass);

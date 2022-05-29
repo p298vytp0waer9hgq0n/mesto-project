@@ -4,21 +4,20 @@ import { toggleSubmitBtn } from './modals.js';
 function enableValidation (param) {
   const forms = document.querySelectorAll(param.formSelector);
   for (const form of forms) {
-    validateForm(form, param);
+    form.setAttribute('novalidate', '');
+    form.addEventListener('input', (evt) => validateForm (form, evt.target, param));
   }
 }
 
 //Функция валидации формы
-function validateForm (form, param) {
-  form.setAttribute('novalidate', '');
+function validateForm (form, target, param) {
   const inputs = Array.from(form.querySelectorAll(param.inputSelector));
   const button = form.querySelector(param.submitButtonSelector);
-  form.addEventListener('input', (evt) => {
-    const msgSpan = form.querySelector(`.${evt.target.name}-invalid`);
-    validateInput(evt.target, msgSpan, param);
-    validateButton(inputs, button, param);
-  });
+  const msgSpan = form.querySelector(`.${target.name}-invalid`);
+  validateInput(target, msgSpan, param);
+  validateButton(inputs, button, param);
 }
+
 
 //Функция валидации инпута
 function validateInput (input, msgSpan, param) {
@@ -32,7 +31,7 @@ function validateInput (input, msgSpan, param) {
   }
 }
 
-//Функция валидизации кнопки
+//Функция валидации кнопки
 function validateButton(inputs, button, param) {
   const invalid = inputs.some((input) => {
     return !input.validity.valid;
