@@ -15,7 +15,7 @@ function validateForm (form, target, param) {
   const button = form.querySelector(param.submitButtonSelector);
   const msgSpan = form.querySelector(`.${target.name}-invalid`);
   validateInput(target, msgSpan, param);
-  validateButton(inputs, button, param);
+  toggleSubmitBtn(form.checkValidity(), button, param);
 }
 
 
@@ -29,14 +29,6 @@ function validateInput (input, msgSpan, param) {
     input.classList.add(param.inputErrorClass);
     msgSpan.classList.add(param.errorClass);
   }
-}
-
-//Функция валидации кнопки
-function validateButton(inputs, button, param) {
-  const invalid = inputs.some((input) => {
-    return !input.validity.valid;
-  });
-  toggleSubmitBtn(!invalid, button, param);
 }
 
 export { enableValidation };
