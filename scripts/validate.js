@@ -11,13 +11,11 @@ function enableValidation (param) {
 
 //Функция валидации формы
 function validateForm (form, target, param) {
-  const inputs = Array.from(form.querySelectorAll(param.inputSelector));
-  const button = form.querySelector(param.submitButtonSelector);
+  const button = form.submit;
   const msgSpan = form.querySelector(`.${target.name}-invalid`);
   validateInput(target, msgSpan, param);
   toggleSubmitBtn(form.checkValidity(), button, param);
 }
-
 
 //Функция валидации инпута
 function validateInput (input, msgSpan, param) {

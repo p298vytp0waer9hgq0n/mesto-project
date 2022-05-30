@@ -71,7 +71,7 @@ function closePopup () {
   }
 }
 
-function resetForm(form) {
+function resetForm (form) {
   toggleSubmitBtn(false, form.submit, validationParameters);
   for (const element of form.children) {
     element.classList.remove(validationParameters.inputErrorClass);
