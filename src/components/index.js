@@ -35,7 +35,6 @@ const initialCards = [
 const profileAddButton = document.querySelector('.profile__add');
 const profileEditButton = document.querySelector('.profile__edit');
 const popups = document.querySelectorAll('.popup');
-const popupCloseButtons = document.querySelectorAll('.popup__close');
 
 const validationParameters = {
   formSelector: '.popup__form',
@@ -51,12 +50,13 @@ profileAddButton.addEventListener('click', openPopupNewPlace);
 profileEditButton.addEventListener('click', openPopupEditProfile);
 formEditProfile.addEventListener('submit', submitProfile);
 formNewPlace.addEventListener('submit', submitPlace);
-for (const butt of popupCloseButtons) {
-  butt.addEventListener('click', closePopup);
-}
 for (const popup of popups) {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup')) closePopup();
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_active')) {
+      closePopup(popup);
+    } else if (evt.target.classList.contains('popup__close')) {
+      closePopup(popup);
+    }
   });
 }
 
@@ -65,7 +65,7 @@ for (const card of initialCards) {
   galleryList.append(createGalleryItem(card.name, card.link));
 }
 
-//Включение валидизации инпута
+//Включение валидации инпута
 enableValidation(validationParameters);
 
 export { validationParameters };

@@ -1,5 +1,3 @@
-import { toggleSubmitBtn } from './modals.js';
-
 //Функция инициализации валидации форм
 function enableValidation (param) {
   const forms = document.querySelectorAll(param.formSelector);
@@ -29,4 +27,15 @@ function validateInput (input, msgSpan, param) {
   }
 }
 
-export { enableValidation };
+//Функция переключения состояния кнопки
+function toggleSubmitBtn (valid, button, param) {
+  if (!valid) {
+    button.classList.add(param.inactiveButtonClass);
+    button.setAttribute('disabled', '');
+  } else {
+    button.classList.remove(param.inactiveButtonClass);
+    button.removeAttribute('disabled');
+  }
+}
+
+export { enableValidation, toggleSubmitBtn };

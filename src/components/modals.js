@@ -1,4 +1,5 @@
 import { createGalleryItem } from "./cards.js";
+import { toggleSubmitBtn } from "./validate.js";
 import { validationParameters } from "./index.js";
 
 const profileName = document.querySelector('.profile__name');
@@ -24,11 +25,12 @@ const galleryList = document.querySelector('.gallery__list');
 
 //Функции открытия попапов
 function openPopupNewPlace () {
-  formNewPlace.reset();
+  resetForm(formNewPlace);
   openPopup(popupNewPlace);
 }
 
 function openPopupEditProfile () {
+  resetForm(formEditProfile);
   formEditProfileNameInput.value = profileName.textContent;
   formEditProfileDescInput.value = profileDescription.textContent;
   toggleSubmitBtn(true, formEditProfileSubmitBtn, validationParameters);
@@ -51,27 +53,23 @@ function openPopup (popup) {
 function submitProfile (evt) {
   profileName.textContent = formEditProfileNameInput.value;
   profileDescription.textContent = formEditProfileDescInput.value;
-  closePopup();
+  closePopup(popupEditProfile);
   evt.preventDefault();
 }
 
 function submitPlace (evt) {
   galleryList.prepend(createGalleryItem(formNewPlaceNameInput.value, formNewPlaceAddrInput.value));
-  closePopup();
+  closePopup(popupNewPlace);
   evt.preventDefault();
 }
 
-function closePopup () {
-  const popup = document.querySelector('.popup_active')
-  if (popup) {
-    popup.classList.remove('popup_active');
-    const form = popup.querySelector('.popup__form');
-    if (form) resetForm(form);
-    document.removeEventListener('keydown', closeOnEsc);
-  }
+function closePopup (popup) {
+  popup.classList.remove('popup_active');
+  document.removeEventListener('keydown', closeOnEsc);
 }
 
 function resetForm (form) {
+  form.reset();
   toggleSubmitBtn(false, form.submit, validationParameters);
   for (const element of form.children) {
     element.classList.remove(validationParameters.inputErrorClass);
@@ -79,19 +77,11 @@ function resetForm (form) {
   }
 }
 
-//Функция переключения состояния кнопки
-function toggleSubmitBtn (valid, button, param) {
-  if (!valid) {
-    button.classList.add(param.inactiveButtonClass);
-    button.setAttribute('disabled', '');
-  } else {
-    button.classList.remove(param.inactiveButtonClass);
-    button.removeAttribute('disabled');
+function closeOnEsc (evt) {
+  if (evt.key === 'Escape') {
+    const popup = document.querySelector('.popup_active');
+    closePopup(popup);
   }
 }
 
-function closeOnEsc (evt) {
-  if (evt.key === 'Escape') closePopup();
-}
-
-export { formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditProfile, openPopupShowImage, submitProfile, submitPlace, closePopup, toggleSubmitBtn };
+export { formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditProfile, openPopupShowImage, submitProfile, submitPlace, closePopup };
