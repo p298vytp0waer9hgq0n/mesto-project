@@ -5,6 +5,7 @@ import { validationParameters } from "./index.js";
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 
+const formEditAvatar = document.forms.editAvatar;
 const formEditProfile = document.forms.editProfile;
 const formNewPlace = document.forms.newPlace;
 
@@ -16,6 +17,7 @@ const formEditProfileDescInput = formEditProfile.elements.description;
 const formEditProfileSubmitBtn = formEditProfile.elements.submit;
 
 const popupNewPlace = document.querySelector('.popup_type_new-place');
+const popupEditAvatar = document.querySelector('.popup_type_edit-avatar');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupShowImage = document.querySelector('.popup_type_show-image');
 const popupShowImageImage = popupShowImage.querySelector('.popup__image');
@@ -27,6 +29,11 @@ const galleryList = document.querySelector('.gallery__list');
 function openPopupNewPlace () {
   resetForm(formNewPlace);
   openPopup(popupNewPlace);
+}
+
+function openPopupEditAvatar () {
+  resetForm(formEditAvatar);
+  openPopup(popupEditAvatar);
 }
 
 function openPopupEditProfile () {
@@ -84,4 +91,4 @@ function closeOnEsc (evt) {
   }
 }
 
-export { formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditProfile, openPopupShowImage, submitProfile, submitPlace, closePopup };
+export { formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditAvatar, openPopupEditProfile, openPopupShowImage, submitProfile, submitPlace, closePopup };

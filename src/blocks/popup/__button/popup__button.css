@@ -6,6 +6,7 @@
   border: none;
   border-radius: 2px;
   font-size: 18px;
+  border: 1px solid transparent;
   transition: background-color .4s;
   cursor: pointer;
 }

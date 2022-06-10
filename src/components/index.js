@@ -2,7 +2,7 @@ import '../pages/index.css';
 
 import { enableValidation } from './validate.js';
 import { createGalleryItem } from './cards.js';
-import { formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditProfile, submitProfile, submitPlace, closePopup } from './modals.js';
+import { formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditAvatar, openPopupEditProfile, submitProfile, submitPlace, closePopup } from './modals.js';
 
 
 const initialCards = [
@@ -32,6 +32,7 @@ const initialCards = [
   }
 ];
 
+const profileEditAvatar = document.querySelector('.profile__avatar-overlay');
 const profileAddButton = document.querySelector('.profile__add');
 const profileEditButton = document.querySelector('.profile__edit');
 const popups = document.querySelectorAll('.popup');
@@ -47,6 +48,7 @@ const validationParameters = {
 
 
 profileAddButton.addEventListener('click', openPopupNewPlace);
+profileEditAvatar.addEventListener('click', openPopupEditAvatar);
 profileEditButton.addEventListener('click', openPopupEditProfile);
 formEditProfile.addEventListener('submit', submitProfile);
 formNewPlace.addEventListener('submit', submitPlace);
