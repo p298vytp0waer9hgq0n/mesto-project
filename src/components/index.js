@@ -1,36 +1,12 @@
 import '../pages/index.css';
 
 import { enableValidation } from './validate.js';
+import { downloadUserInfo, profileData } from './profile.js';
 import { createGalleryItem } from './cards.js';
-import { formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditAvatar, openPopupEditProfile, submitProfile, submitPlace, closePopup } from './modals.js';
+import { formEditAvatar, formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditAvatar, openPopupEditProfile, submitProfile, submitPlace, closePopup, submitAvatar } from './modals.js';
+import { getInitialCards } from './api.js';
 
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 const profileEditAvatar = document.querySelector('.profile__avatar-overlay');
 const profileAddButton = document.querySelector('.profile__add');
@@ -47,9 +23,11 @@ const validationParameters = {
 };
 
 
+
 profileAddButton.addEventListener('click', openPopupNewPlace);
 profileEditAvatar.addEventListener('click', openPopupEditAvatar);
 profileEditButton.addEventListener('click', openPopupEditProfile);
+formEditAvatar.addEventListener('submit', submitAvatar);
 formEditProfile.addEventListener('submit', submitProfile);
 formNewPlace.addEventListener('submit', submitPlace);
 for (const popup of popups) {
@@ -62,12 +40,17 @@ for (const popup of popups) {
   });
 }
 
-//Население галереи
-for (const card of initialCards) {
-  galleryList.append(createGalleryItem(card.name, card.link));
-}
 
 //Включение валидации инпута
 enableValidation(validationParameters);
+
+downloadUserInfo().then(() => {
+// Население галереи
+  getInitialCards().then((data) => {
+    for (const elem of data) {
+      galleryList.append(createGalleryItem(elem.name, elem.link, elem._id, elem.owner._id));
+    }
+  }).catch((err) => console.log(`Ошибка населения галереи: ${err}`));
+});
 
 export { validationParameters };

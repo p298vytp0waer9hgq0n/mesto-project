@@ -1,6 +1,8 @@
 import { createGalleryItem } from "./cards.js";
 import { toggleSubmitBtn } from "./validate.js";
 import { validationParameters } from "./index.js";
+import { updateUserAvatar, updateUserInfo, uploadCard } from "./api.js";
+import { renderUserInfo } from "./profile.js";
 
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
@@ -12,6 +14,7 @@ const formNewPlace = document.forms.newPlace;
 const formNewPlaceNameInput = formNewPlace.elements.name;
 const formNewPlaceAddrInput = formNewPlace.elements.address;
 
+const formEditAvatarAddrInput = formEditAvatar.elements.address;
 const formEditProfileNameInput = formEditProfile.elements.name;
 const formEditProfileDescInput = formEditProfile.elements.description;
 const formEditProfileSubmitBtn = formEditProfile.elements.submit;
@@ -58,15 +61,35 @@ function openPopup (popup) {
 
 //Функции закрытия попапов
 function submitProfile (evt) {
-  profileName.textContent = formEditProfileNameInput.value;
-  profileDescription.textContent = formEditProfileDescInput.value;
-  closePopup(popupEditProfile);
+  updateUserInfo(formEditProfileNameInput.value, formEditProfileDescInput.value).then((resp) => {;
+    renderUserInfo();
+    closePopup(popupEditProfile);
+  }).catch((err) => {
+    console.log(`Ошибка обновления профиля: ${err}`);
+    closePopup(popupEditProfile);
+  });
+  evt.preventDefault();
+}
+
+function submitAvatar (evt) {
+  updateUserAvatar(formEditAvatarAddrInput.value).then((resp) => {
+    renderUserInfo();
+    closePopup(popupEditAvatar);
+  }).catch((err) => {
+    console.log(`Ошибка обновления аватара: ${err}`);
+    closePopup(popupEditAvatar);
+  });
   evt.preventDefault();
 }
 
 function submitPlace (evt) {
-  galleryList.prepend(createGalleryItem(formNewPlaceNameInput.value, formNewPlaceAddrInput.value));
-  closePopup(popupNewPlace);
+  uploadCard(formNewPlaceNameInput.value, formNewPlaceAddrInput.value).then((data) => {
+    galleryList.prepend(createGalleryItem(data.name, data.link, data._id, data.owner._id));
+    closePopup(popupNewPlace);
+  }).catch((err) => {
+    console.log(`Ошибка при добавлении карточки: ${err}`);
+    closePopup(popupNewPlace);
+  });
   evt.preventDefault();
 }
 
@@ -91,4 +114,4 @@ function closeOnEsc (evt) {
   }
 }
 
-export { formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditAvatar, openPopupEditProfile, openPopupShowImage, submitProfile, submitPlace, closePopup };
+export { formEditAvatar, formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditAvatar, openPopupEditProfile, openPopupShowImage, submitAvatar, submitProfile, submitPlace, closePopup };
