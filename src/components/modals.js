@@ -61,12 +61,15 @@ function openPopup (popup) {
 
 //Функции закрытия попапов
 function submitProfile (evt) {
+  formEditProfileSubmitBtn.textContent = 'Сохранение...';
   updateUserInfo(formEditProfileNameInput.value, formEditProfileDescInput.value).then((resp) => {;
     renderUserInfo();
     closePopup(popupEditProfile);
+    formEditProfileSubmitBtn.textContent = 'Сохранить';
   }).catch((err) => {
     console.log(`Ошибка обновления профиля: ${err}`);
     closePopup(popupEditProfile);
+    formEditProfileSubmitBtn.textContent = 'Сохранить';
   });
   evt.preventDefault();
 }

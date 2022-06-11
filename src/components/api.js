@@ -1,4 +1,4 @@
-import { profileData, renderUserInfo } from "./profile.js";
+import { profileData } from "./profile.js";
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-11',
@@ -81,4 +81,17 @@ function deleteCard (id) {
   });
 }
 
-export { getUserInfo, updateUserAvatar, updateUserInfo, getInitialCards, uploadCard, deleteCard }
+function likeCard (id, method) {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
+    method: method,
+    headers: config.headers
+  }).then((resp) => {
+    if (resp.ok) {
+      return resp.json();
+    } else {
+      return Promise.reject(resp.status);
+    }
+  });
+}
+
+export { getUserInfo, updateUserAvatar, updateUserInfo, getInitialCards, uploadCard, deleteCard, likeCard }

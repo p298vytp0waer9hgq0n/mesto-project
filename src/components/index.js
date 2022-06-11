@@ -48,7 +48,7 @@ downloadUserInfo().then(() => {
 // Население галереи
   getInitialCards().then((data) => {
     for (const elem of data) {
-      galleryList.append(createGalleryItem(elem.name, elem.link, elem._id, elem.owner._id));
+      galleryList.append(createGalleryItem(elem.name, elem.link, elem.likes, elem._id, elem.owner._id));
     }
   }).catch((err) => console.log(`Ошибка населения галереи: ${err}`));
 });
