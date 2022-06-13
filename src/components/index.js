@@ -1,7 +1,7 @@
 import '../pages/index.css';
 
 import { enableValidation } from './validate.js';
-import { downloadUserInfo, profileData } from './profile.js';
+import { downloadUserInfo, userId } from './profile.js';
 import { createGalleryItem } from './cards.js';
 import { formEditAvatar, formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditAvatar, openPopupEditProfile, submitProfile, submitPlace, closePopup, submitAvatar } from './modals.js';
 import { getInitialCards } from './api.js';
@@ -44,7 +44,7 @@ for (const popup of popups) {
 //Включение валидации инпута
 enableValidation(validationParameters);
 
-downloadUserInfo().then(() => {
+downloadUserInfo().then((data) => {
 // Население галереи
   getInitialCards().then((data) => {
     for (const elem of data) {
