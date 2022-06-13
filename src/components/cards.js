@@ -1,6 +1,6 @@
 import { deleteCard, likeCard } from "./api.js";
 import { openPopupShowImage } from "./modals.js";
-import { userId } from "./profile.js";
+import { userId } from "./index.js";
 const galleryItemTemplate = document.querySelector('#gallery-item-template');
 
 function likeButton (evt) {

@@ -1,13 +1,14 @@
 import '../pages/index.css';
 
 import { enableValidation } from './validate.js';
-import { downloadUserInfo, userId } from './profile.js';
+import { renderUserInfo } from './profile.js';
 import { createGalleryItem } from './cards.js';
 import { formEditAvatar, formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditAvatar, openPopupEditProfile, submitProfile, submitPlace, closePopup, submitAvatar } from './modals.js';
-import { getInitialCards } from './api.js';
+import { getUserInfo, getInitialCards } from './api.js';
 
 
 
+let userId;
 const profileEditAvatar = document.querySelector('.profile__avatar-overlay');
 const profileAddButton = document.querySelector('.profile__add');
 const profileEditButton = document.querySelector('.profile__edit');
@@ -44,13 +45,14 @@ for (const popup of popups) {
 //Включение валидации инпута
 enableValidation(validationParameters);
 
-downloadUserInfo().then((data) => {
-// Население галереи
-  getInitialCards().then((data) => {
-    for (const elem of data) {
-      galleryList.append(createGalleryItem(elem.name, elem.link, elem.likes, elem._id, elem.owner._id));
+Promise.all([getUserInfo(), getInitialCards()])
+  .then((data) => {
+    renderUserInfo(data[0]);
+    userId = data[0]._id;
+    const initialCards = data[1];
+    for (const elem of initialCards) {
+        galleryList.append(createGalleryItem(elem.name, elem.link, elem.likes, elem._id, elem.owner._id));
     }
-  }).catch((err) => console.log(`Ошибка загрузки галереи: ${err}`));
-}).catch((err) => console.log(`Ошибка загрузки профиля: ${err}`));
+  }).catch((err) => console.log(`Ошибка загрузки данных: ${err}`));
 
-export { validationParameters };
+export { userId, validationParameters };
