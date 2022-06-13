@@ -1,5 +1,3 @@
-import { profileData } from "./profile.js";
-
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-11',
   headers: {
@@ -18,9 +16,7 @@ function handleResp (resp) {
 
 function getUserInfo () {
   return fetch(`${config.baseUrl}/users/me`, { headers: config.headers })
-    .then(resp => handleResp(resp)).then((data) => {
-      Object.assign(profileData, data);
-    });
+    .then(resp => handleResp(resp));
 }
 
 function updateUserInfo (name, descr) {
@@ -31,9 +27,7 @@ function updateUserInfo (name, descr) {
       name: name,
       about: descr
     })
-  }).then((resp) => handleResp(resp)).then((data) => {
-    Object.assign(profileData, data);
-  });
+  }).then((resp) => handleResp(resp));
 }
 
 function updateUserAvatar (link) {
@@ -43,9 +37,7 @@ function updateUserAvatar (link) {
     body: JSON.stringify({
       avatar: link
     })
-  }).then((resp) => handleResp(resp)).then((data) => {
-    Object.assign(profileData, data);
-  });
+  }).then((resp) => handleResp(resp));
 }
 
 function getInitialCards () {

@@ -7,14 +7,14 @@ const profileDescr = document.querySelector('.profile__description');
 
 function downloadUserInfo () {
   return getUserInfo().then((data) => {
-    renderUserInfo();
+    renderUserInfo(data);
   }).catch((err) => console.log(`Ошибка обновления профиля: ${err}`));
 }
 
-function renderUserInfo () {
-  profileAvatar.src = profileData.avatar;
-  profileName.textContent = profileData.name;
-  profileDescr.textContent = profileData.about;
+function renderUserInfo (data) {
+  profileAvatar.src = data.avatar;
+  profileName.textContent = data.name;
+  profileDescr.textContent = data.about;
 }
 
 export { profileData, profileAvatar, downloadUserInfo, renderUserInfo }

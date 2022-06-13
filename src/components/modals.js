@@ -62,8 +62,8 @@ function openPopup (popup) {
 //Функции закрытия попапов
 function submitProfile (evt) {
   formEditProfileSubmitBtn.textContent = 'Сохранение...';
-  updateUserInfo(formEditProfileNameInput.value, formEditProfileDescInput.value).then((resp) => {;
-    renderUserInfo();
+  updateUserInfo(formEditProfileNameInput.value, formEditProfileDescInput.value).then((data) => {;
+    renderUserInfo(data);
   }).catch((err) => {
     console.log(`Ошибка обновления профиля: ${err}`);
   }).finally(() => {
@@ -75,8 +75,8 @@ function submitProfile (evt) {
 
 function submitAvatar (evt) {
   evt.target.submit.textContent = 'Сохранение...';
-  updateUserAvatar(formEditAvatarAddrInput.value).then((resp) => {
-    renderUserInfo();
+  updateUserAvatar(formEditAvatarAddrInput.value).then((data) => {
+    renderUserInfo(data);
   }).catch((err) => {
     console.log(`Ошибка обновления аватара: ${err}`);
   }).finally(() => {
