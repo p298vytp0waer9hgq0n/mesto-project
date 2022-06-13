@@ -64,33 +64,36 @@ function submitProfile (evt) {
   formEditProfileSubmitBtn.textContent = 'Сохранение...';
   updateUserInfo(formEditProfileNameInput.value, formEditProfileDescInput.value).then((resp) => {;
     renderUserInfo();
-    closePopup(popupEditProfile);
-    formEditProfileSubmitBtn.textContent = 'Сохранить';
   }).catch((err) => {
     console.log(`Ошибка обновления профиля: ${err}`);
-    closePopup(popupEditProfile);
+  }).finally(() => {
     formEditProfileSubmitBtn.textContent = 'Сохранить';
+    closePopup(popupEditProfile);
   });
   evt.preventDefault();
 }
 
 function submitAvatar (evt) {
+  evt.target.submit.textContent = 'Сохранение...';
   updateUserAvatar(formEditAvatarAddrInput.value).then((resp) => {
     renderUserInfo();
-    closePopup(popupEditAvatar);
   }).catch((err) => {
     console.log(`Ошибка обновления аватара: ${err}`);
+  }).finally(() => {
+    evt.target.submit.textContent = 'Сохранить';
     closePopup(popupEditAvatar);
   });
   evt.preventDefault();
 }
 
 function submitPlace (evt) {
+  evt.target.submit.textContent = 'Сохранение...';
   uploadCard(formNewPlaceNameInput.value, formNewPlaceAddrInput.value).then((data) => {
-    galleryList.prepend(createGalleryItem(data.name, data.link, data._id, data.owner._id));
-    closePopup(popupNewPlace);
+    galleryList.prepend(createGalleryItem(data.name, data.link, data.likes, data._id, data.owner._id));
   }).catch((err) => {
     console.log(`Ошибка при добавлении карточки: ${err}`);
+  }).finally(() => {
+    evt.target.submit.textContent = 'Создать';
     closePopup(popupNewPlace);
   });
   evt.preventDefault();
