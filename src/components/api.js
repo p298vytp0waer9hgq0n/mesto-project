@@ -8,15 +8,17 @@ const config = {
   }
 }
 
+function handleResp (resp) {
+  if (resp.ok) {
+    return resp.json();
+  } else {
+    return Promise.reject(resp.status);
+  }
+}
+
 function getUserInfo () {
   return fetch(`${config.baseUrl}/users/me`, { headers: config.headers })
-    .then(resp => {
-      if (resp.ok) {
-        return resp.json();
-      } else {
-        return Promise.reject(resp.status);
-      }
-    }).then((data) => {
+    .then(resp => handleResp(resp)).then((data) => {
       Object.assign(profileData, data);
     });
 }
@@ -29,7 +31,7 @@ function updateUserInfo (name, descr) {
       name: name,
       about: descr
     })
-  }).then((resp) => resp.json()).then((data) => {
+  }).then((resp) => handleResp(resp)).then((data) => {
     Object.assign(profileData, data);
   });
 }
@@ -41,20 +43,14 @@ function updateUserAvatar (link) {
     body: JSON.stringify({
       avatar: link
     })
-  }).then((resp) => resp.json()).then((data) => {
+  }).then((resp) => handleResp(resp)).then((data) => {
     Object.assign(profileData, data);
   });
 }
 
 function getInitialCards () {
   return fetch(`${config.baseUrl}/cards`,  { headers: config.headers })
-    .then(resp => {
-      if (resp.ok) {
-        return resp.json();
-      } else {
-        return Promise.reject(resp.status);
-      }
-    });
+    .then(resp => handleResp(resp));
 }
 
 function uploadCard (name, link) {
@@ -65,33 +61,21 @@ function uploadCard (name, link) {
       name: name,
       link: link
     })
-  }).then((resp) => {
-    if (resp.ok) {
-      return resp.json();
-    } else {
-      return Promise.reject(resp.status);
-    }
-  });
+  }).then((resp) => handleResp(resp));
 }
 
 function deleteCard (id) {
   return fetch(`${config.baseUrl}/cards/${id}`, {
     method: 'DELETE',
     headers: config.headers
-  });
+  }).then((resp) => handleResp(resp));
 }
 
 function likeCard (id, method) {
   return fetch(`${config.baseUrl}/cards/likes/${id}`, {
     method: method,
     headers: config.headers
-  }).then((resp) => {
-    if (resp.ok) {
-      return resp.json();
-    } else {
-      return Promise.reject(resp.status);
-    }
-  });
+  }).then((resp) => handleResp(resp));
 }
 
 export { getUserInfo, updateUserAvatar, updateUserInfo, getInitialCards, uploadCard, deleteCard, likeCard }

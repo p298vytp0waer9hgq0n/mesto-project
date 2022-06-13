@@ -50,7 +50,7 @@ downloadUserInfo().then(() => {
     for (const elem of data) {
       galleryList.append(createGalleryItem(elem.name, elem.link, elem.likes, elem._id, elem.owner._id));
     }
-  }).catch((err) => console.log(`Ошибка населения галереи: ${err}`));
-});
+  }).catch((err) => console.log(`Ошибка загрузки галереи: ${err}`));
+}).catch((err) => console.log(`Ошибка загрузки профиля: ${err}`));
 
 export { validationParameters };

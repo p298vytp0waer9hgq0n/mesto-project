@@ -12,12 +12,12 @@ function likeButton () {
     counter.textContent = data.likes.length;
     this.classList.toggle('gallery__like-button_like');
     this.addEventListener('click', likeButton);
-  });
+  }).catch((err) => console.log(`Ошибка лайка карточки: ${err}`));
 }
 
 function deleteButton () {
   const item = this.closest('.gallery__item');
-  deleteCard(item.id).then(() => { item.remove() });
+  deleteCard(item.id).then(() => { item.remove() }).catch((err) => console.log(`Ошибка удаления карточки: ${err}`));
 }
 
 function createGalleryItem (title, source, likes, id, userId) {
