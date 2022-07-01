@@ -1,6 +1,6 @@
-import { createGalleryItem } from "./cards.js";
+import { Card, createGalleryItem } from "./cards.js";
 import { toggleSubmitBtn } from "./validate.js";
-import { validationParameters } from "./index.js";
+import { validationParameters, galleryItemTemplate } from "./index.js";
 import { updateUserAvatar, updateUserInfo, uploadCard } from "./api.js";
 import { renderUserInfo } from "./profile.js";
 
@@ -89,7 +89,8 @@ function submitAvatar (evt) {
 function submitPlace (evt) {
   evt.target.submit.textContent = 'Сохранение...';
   uploadCard(formNewPlaceNameInput.value, formNewPlaceAddrInput.value).then((data) => {
-    galleryList.prepend(createGalleryItem(data.name, data.link, data.likes, data._id, data.owner._id));
+    const card = new Card(data.name, data.link, data.likes, data._id, data.owner._id, galleryItemTemplate);
+    galleryList.prepend(card.createItem());
     closePopup(popupNewPlace);
   }).catch((err) => {
     console.log(`Ошибка при добавлении карточки: ${err}`);

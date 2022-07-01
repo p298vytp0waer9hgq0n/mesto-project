@@ -2,13 +2,12 @@ import '../pages/index.css';
 
 import { enableValidation } from './validate.js';
 import { renderUserInfo } from './profile.js';
-import { createGalleryItem } from './cards.js';
+import { createGalleryItem, Card } from './cards.js';
 import { formEditAvatar, formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditAvatar, openPopupEditProfile, submitProfile, submitPlace, closePopup, submitAvatar } from './modals.js';
 import { getUserInfo, getInitialCards } from './api.js';
 
-
-
 let userId;
+const galleryItemTemplate = document.querySelector('#gallery-item-template');
 const profileEditAvatar = document.querySelector('.profile__avatar-overlay');
 const profileAddButton = document.querySelector('.profile__add');
 const profileEditButton = document.querySelector('.profile__edit');
@@ -51,8 +50,9 @@ Promise.all([getUserInfo(), getInitialCards()])
     userId = data[0]._id;
     const initialCards = data[1];
     for (const elem of initialCards) {
-        galleryList.append(createGalleryItem(elem.name, elem.link, elem.likes, elem._id, elem.owner._id));
+        const card = new Card(elem.name, elem.link, elem.likes, elem._id, elem.owner._id, galleryItemTemplate);
+        galleryList.append(card.createItem());
     }
   }).catch((err) => console.log(`Ошибка загрузки данных: ${err}`));
 
-export { userId, validationParameters };
+export { userId, validationParameters, galleryItemTemplate };

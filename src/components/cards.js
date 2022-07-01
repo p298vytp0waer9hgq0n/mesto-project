@@ -1,7 +1,65 @@
 import { deleteCard, likeCard } from "./api.js";
 import { openPopupShowImage } from "./modals.js";
 import { userId } from "./index.js";
-const galleryItemTemplate = document.querySelector('#gallery-item-template');
+
+export class Card {
+  constructor (title, source, likes, id, ownerId, templateSelector) {
+    this._title = title;
+    this._source = source;
+    this._likes = likes;
+    this._id = id;
+    this._ownerId = ownerId;
+    this._template = templateSelector;
+  }
+
+  _likeButtonListener (evt) {
+    evt.target.disabled = true;
+    const method = evt.target.classList.contains('gallery__like-button_like') ? 'DELETE' : 'PUT';
+    likeCard(this._id, method).then((data) => {
+      this._counter.textContent = data.likes.length;
+      evt.target.classList.toggle('gallery__like-button_like');
+    }).catch((err) => console.log(`Ошибка лайка карточки: ${err}`))
+    .finally(() => evt.target.disabled = false);
+  }
+
+  _deleteButtonListener (evt) {
+    deleteCard(this._id).then(() => { this.item.remove() }).catch((err) => console.log(`Ошибка удаления карточки: ${err}`))
+  }
+
+  _initTemplate () {
+    this.item = this._template.content.cloneNode(true).firstElementChild;
+    this._deleteBtn = this.item.querySelector('.gallery__delete-button');
+    this._likeBtn = this.item.querySelector('.gallery__like-button');
+    this._image = this.item.querySelector('.gallery__image');
+    this._counter = this.item.querySelector('.gallery__like-counter');
+    this._titleElem = this.item.querySelector('.gallery__title');
+  }
+
+  _addListeners () {
+    this._image.addEventListener('click', () => openPopupShowImage(this._title, this._source));
+    this._likeBtn.addEventListener('click', this._likeButtonListener.bind(this));
+  }
+
+  createItem () {
+    this._initTemplate();
+
+    this._image.src = this._source;
+    this._image.alt = this._title;
+    this._titleElem.textContent = this._title;
+    this._counter.textContent = this._likes.length;
+    if (this._likes.some((element) => element._id === userId)) {
+      this._likeBtn.classList.add('gallery__like-button_like');
+    }
+    if (this._ownerId === userId) {
+      this._deleteBtn.addEventListener('click', this._deleteButtonListener.bind(this));
+      this._deleteBtn.classList.add('gallery__delete-button_active');
+    }
+
+    this._addListeners();
+
+    return this.item;
+  }
+}
 
 function likeButton (evt) {
   evt.target.disabled = true;
@@ -46,4 +104,4 @@ function createGalleryItem (title, source, likes, id, ownerId) {
   return galleryItem;
 }
 
-export {galleryItemTemplate, likeButton, deleteButton, createGalleryItem};
+export {likeButton, deleteButton, createGalleryItem};
