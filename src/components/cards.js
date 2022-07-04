@@ -38,11 +38,13 @@ export class Card {
   _addListeners () {
     this._image.addEventListener('click', () => openPopupShowImage(this._title, this._source));
     this._likeBtn.addEventListener('click', this._likeButtonListener.bind(this));
+    if (this._ownerId === userId) {
+      this._deleteBtn.addEventListener('click', this._deleteButtonListener.bind(this));
+    }
   }
 
   createItem () {
     this._initTemplate();
-
     this._image.src = this._source;
     this._image.alt = this._title;
     this._titleElem.textContent = this._title;
@@ -51,7 +53,6 @@ export class Card {
       this._likeBtn.classList.add('gallery__like-button_like');
     }
     if (this._ownerId === userId) {
-      this._deleteBtn.addEventListener('click', this._deleteButtonListener.bind(this));
       this._deleteBtn.classList.add('gallery__delete-button_active');
     }
 
@@ -60,7 +61,7 @@ export class Card {
     return this.item;
   }
 }
-
+/*
 function likeButton (evt) {
   evt.target.disabled = true;
   const itemId = evt.target.closest('.gallery__item').id;
@@ -103,5 +104,6 @@ function createGalleryItem (title, source, likes, id, ownerId) {
 
   return galleryItem;
 }
+*/
 
-export {likeButton, deleteButton, createGalleryItem};
+// export {likeButton, deleteButton }

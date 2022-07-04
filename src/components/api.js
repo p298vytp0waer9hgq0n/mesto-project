@@ -10,6 +10,7 @@ function handleResp (resp) {
   if (resp.ok) {
     return resp.json();
   } else {
+    console.log('Ошибка связи с сервером');
     return Promise.reject(resp.status);
   }
 }

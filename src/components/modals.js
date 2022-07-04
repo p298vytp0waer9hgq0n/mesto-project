@@ -1,5 +1,5 @@
 import { Card, createGalleryItem } from "./cards.js";
-import { toggleSubmitBtn } from "./validate.js";
+// import { toggleSubmitBtn } from "./validate.js";
 import { validationParameters, galleryItemTemplate } from "./index.js";
 import { updateUserAvatar, updateUserInfo, uploadCard } from "./api.js";
 import { renderUserInfo } from "./profile.js";
@@ -43,7 +43,9 @@ function openPopupEditProfile () {
   resetForm(formEditProfile);
   formEditProfileNameInput.value = profileName.textContent;
   formEditProfileDescInput.value = profileDescription.textContent;
-  toggleSubmitBtn(true, formEditProfileSubmitBtn, validationParameters);
+  formEditProfileSubmitBtn.classList.remove(validationParameters.inactiveButtonClass);
+  formEditProfileSubmitBtn.removeAttribute('disabled', '');
+  // toggleSubmitBtn(true, formEditProfileSubmitBtn, validationParameters);
   openPopup(popupEditProfile);
 }
 
@@ -107,10 +109,12 @@ function closePopup (popup) {
 
 function resetForm (form) {
   form.reset();
-  toggleSubmitBtn(false, form.submit, validationParameters);
+  form.submit.classList.add(validationParameters.inactiveButtonClass);
+  form.submit.setAttribute('disabled', '');
+  // toggleSubmitBtn(false, form.submit, validationParameters);
   for (const element of form.children) {
     element.classList.remove(validationParameters.inputErrorClass);
-    element.classList.remove(validationParameters.errorClass);
+    element.classList.remove(validationParameters.errorMessageClass);
   }
 }
 

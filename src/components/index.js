@@ -1,8 +1,8 @@
 import '../pages/index.css';
 
-import { enableValidation } from './validate.js';
+import { FormValidator, enableValidation } from './validate.js';
 import { renderUserInfo } from './profile.js';
-import { createGalleryItem, Card } from './cards.js';
+import { Card } from './cards.js';
 import { formEditAvatar, formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditAvatar, openPopupEditProfile, submitProfile, submitPlace, closePopup, submitAvatar } from './modals.js';
 import { getUserInfo, getInitialCards } from './api.js';
 
@@ -19,7 +19,7 @@ const validationParameters = {
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: 'popup__input_invalid',
-  errorClass: 'popup__invalid-msg_active'
+  errorMessageClass: 'popup__invalid-msg_active'
 };
 
 
@@ -42,7 +42,11 @@ for (const popup of popups) {
 
 
 //Включение валидации инпута
-enableValidation(validationParameters);
+for (const form of document.forms) {
+  const validator = new FormValidator(validationParameters, form);
+  validator.enableValidation();
+}
+// enableValidation(validationParameters);
 
 Promise.all([getUserInfo(), getInitialCards()])
   .then((data) => {
