@@ -1,7 +1,5 @@
-import { Card, createGalleryItem } from "./cards.js";
-// import { toggleSubmitBtn } from "./validate.js";
-import { validationParameters, galleryItemTemplate } from "./index.js";
-import { updateUserAvatar, updateUserInfo, uploadCard } from "./api.js";
+import { Card } from "./cards.js";
+import { api, validationParameters, galleryItemTemplate } from "./index.js";
 import { renderUserInfo } from "./profile.js";
 
 const profileName = document.querySelector('.profile__name');
@@ -45,7 +43,6 @@ function openPopupEditProfile () {
   formEditProfileDescInput.value = profileDescription.textContent;
   formEditProfileSubmitBtn.classList.remove(validationParameters.inactiveButtonClass);
   formEditProfileSubmitBtn.removeAttribute('disabled', '');
-  // toggleSubmitBtn(true, formEditProfileSubmitBtn, validationParameters);
   openPopup(popupEditProfile);
 }
 
@@ -64,7 +61,7 @@ function openPopup (popup) {
 //Функции закрытия попапов
 function submitProfile (evt) {
   formEditProfileSubmitBtn.textContent = 'Сохранение...';
-  updateUserInfo(formEditProfileNameInput.value, formEditProfileDescInput.value).then((data) => {;
+  api.updateUserInfo(formEditProfileNameInput.value, formEditProfileDescInput.value).then((data) => {;
     renderUserInfo(data);
     closePopup(popupEditProfile);
   }).catch((err) => {
@@ -77,7 +74,7 @@ function submitProfile (evt) {
 
 function submitAvatar (evt) {
   evt.target.submit.textContent = 'Сохранение...';
-  updateUserAvatar(formEditAvatarAddrInput.value).then((data) => {
+  api.updateUserAvatar(formEditAvatarAddrInput.value).then((data) => {
     renderUserInfo(data);
     closePopup(popupEditAvatar);
   }).catch((err) => {
@@ -90,7 +87,7 @@ function submitAvatar (evt) {
 
 function submitPlace (evt) {
   evt.target.submit.textContent = 'Сохранение...';
-  uploadCard(formNewPlaceNameInput.value, formNewPlaceAddrInput.value).then((data) => {
+  api.uploadCard(formNewPlaceNameInput.value, formNewPlaceAddrInput.value).then((data) => {
     const card = new Card(data.name, data.link, data.likes, data._id, data.owner._id, galleryItemTemplate);
     galleryList.prepend(card.createItem());
     closePopup(popupNewPlace);

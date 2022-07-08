@@ -1,10 +1,10 @@
 import '../pages/index.css';
 
-import { FormValidator, enableValidation } from './validate.js';
+import { FormValidator } from './validate.js';
 import { renderUserInfo } from './profile.js';
 import { Card } from './cards.js';
 import { formEditAvatar, formEditProfile, formNewPlace, galleryList, openPopupNewPlace, openPopupEditAvatar, openPopupEditProfile, submitProfile, submitPlace, closePopup, submitAvatar } from './modals.js';
-import { getUserInfo, getInitialCards } from './api.js';
+import { Api } from './api.js';
 
 let userId;
 const galleryItemTemplate = document.querySelector('#gallery-item-template');
@@ -23,6 +23,13 @@ const validationParameters = {
 };
 
 
+const config = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-11',
+  headers: {
+    authorization: 'b774376d-f39e-48ac-9645-fb307bb3995b',
+    'Content-Type': 'application/json'
+  }
+}
 
 profileAddButton.addEventListener('click', openPopupNewPlace);
 profileEditAvatar.addEventListener('click', openPopupEditAvatar);
@@ -39,24 +46,23 @@ for (const popup of popups) {
     }
   });
 }
-
+const api = new Api(config);
 
 //Включение валидации инпута
 for (const form of document.forms) {
   const validator = new FormValidator(validationParameters, form);
   validator.enableValidation();
 }
-// enableValidation(validationParameters);
 
-Promise.all([getUserInfo(), getInitialCards()])
+Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then((data) => {
     renderUserInfo(data[0]);
     userId = data[0]._id;
     const initialCards = data[1];
     for (const elem of initialCards) {
-        const card = new Card(elem.name, elem.link, elem.likes, elem._id, elem.owner._id, galleryItemTemplate);
+        const card = new Card(elem.name, elem.link, elem.likes, elem._id, elem.owner._id, galleryItemTemplate, api.deleteCard, api.likeCard);
         galleryList.append(card.createItem());
     }
   }).catch((err) => console.log(`Ошибка загрузки данных: ${err}`));
 
-export { userId, validationParameters, galleryItemTemplate };
+export { api, userId, validationParameters, galleryItemTemplate };

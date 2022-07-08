@@ -1,21 +1,23 @@
 import { deleteCard, likeCard } from "./api.js";
 import { openPopupShowImage } from "./modals.js";
-import { userId } from "./index.js";
+import { api, userId } from "./index.js";
 
 export class Card {
-  constructor (title, source, likes, id, ownerId, templateSelector) {
+  constructor (title, source, likes, id, ownerId, templateSelector, deleteCallback, likeCallback) {
     this._title = title;
     this._source = source;
     this._likes = likes;
     this._id = id;
     this._ownerId = ownerId;
     this._template = templateSelector;
+    this._deleteCallback = deleteCallback;
+    this._likeCallback = likeCallback;
   }
 
   _likeButtonListener (evt) {
     evt.target.disabled = true;
     const method = evt.target.classList.contains('gallery__like-button_like') ? 'DELETE' : 'PUT';
-    likeCard(this._id, method).then((data) => {
+    this._likeCallback(this._id, method).then((data) => {
       this._counter.textContent = data.likes.length;
       evt.target.classList.toggle('gallery__like-button_like');
     }).catch((err) => console.log(`Ошибка лайка карточки: ${err}`))
@@ -23,7 +25,7 @@ export class Card {
   }
 
   _deleteButtonListener (evt) {
-    deleteCard(this._id).then(() => { this.item.remove() }).catch((err) => console.log(`Ошибка удаления карточки: ${err}`))
+    this._deleteCallback(this._id).then(() => { this.item.remove() }).catch((err) => console.log(`Ошибка удаления карточки: ${err}`))
   }
 
   _initTemplate () {
