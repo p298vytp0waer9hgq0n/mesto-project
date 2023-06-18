@@ -14,3 +14,7 @@
 **Gh-pages**
 
 * [Страница гх-пэйджес](https://p298vytp0waer9hgq0n.github.io/mesto-project/)
+
+**Backend**
+
+* [Репозиторий учебного проекта бекэнда с 14-го спринта](https://github.com/p298vytp0waer9hgq0n/mesto-project-plus)
